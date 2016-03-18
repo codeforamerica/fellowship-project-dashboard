@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>2016 Fellowship Project Dashboard</title>
+    <!-- Check the CfA Style Guide at https://style.codeforamerica.org/ -->
+    <link rel="stylesheet" href="https://style.codeforamerica.org/style/css/main.css">
+    <link rel="stylesheet" href="https://style.codeforamerica.org/style/css/layout.css" media="all and (min-width: 40em)">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://style.codeforamerica.org/1/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="https://style.codeforamerica.org/1/style/favicons/60x60/flag-red.png"/>
+
+    <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.4.3/tabletop.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
+  </head>
+
+  <style>
+
+  .layout-breve {
+    padding: 0;
+  }
+  .card {
+    height: auto !important;
+    padding: 0px !important;
+    margin: 25px 5px 5px 5px !important;
+
+    width: calc(33% - 20px);
+  }
+
+  .card {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+
+  .card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
+
+  .card-head {
+    color: white;
+    background-color: #999595;
+    min-height: 29px;
+  }
+
+  .card-body h3 {
+    padding: 10px 0;
+    border-bottom: 1px solid #999595;
+  }
+
+.card-head, .card-body {
+  padding: 0 10px;
+}
+
+.Safety {
+  background-color: #004b6a;
+}
+
+.Economic {
+  background-color: #00a175;
+}
+
+.Healthy {
+  background-color: #69579C;
+}
+
+
+
+</style>
+
+  <body>
+
+    <div class="layout-breve">
+      <h1>2016 Fellowship Project Dashboard</h1>
+    </div>
+
+    <section>
+      <div class="layout-breve">
+        <ul id="projects" class="list-no-bullets">
+        </ul>
+      </div>
+    </section>
+
+  </body>
+
+<script id="project-template" type="text/x-handlebars-template">
+  
+
+    <li class="project card">
+      
+      <div class="card-head {{ FocusArea }}">
+        
+        <small>{{ FocusArea }}</small>
+
+      </div>
+
+      <div class="card-body">
+
+        <h3>{{ Product }}</h3>
+
+        <p>{{ Description }}</p>
+
+        <div class="card-middle">
+
+          <div style="display:inline-block;">
+            <h4>{{ Stage }}</h4>
+          </div>
+
+          <div style="display:inline-block; float:right;">
+            <h4 class="text-feature">{{ Users }}</h4>
+            <p class="text-whisper">Number of users</p>
+          </div>
+
+        </div>
+
+        <div style="clear:both;">
+        </div>
+
+        <hr />
+
+        <a href="{{ URL }}" class="button-bold" target="_blank">View the project</a>
+
+      </div>
+
+    </li>
+</script>
+
+<script type="text/javascript">
+  window.onload = function() { init() };
+
+  function init() {
+    Tabletop.init( { key: "1Ly8W_iHtUyHu_u7uK0k3L0x3ZuvtY-PiLLLqx9aOtWw",
+                     callback: showInfo,
+                     simpleSheet: true } )
+  }
+
+  function showInfo(data, tabletop) {
+    var source   = $("#project-template").html();
+    var template = Handlebars.compile(source);
+
+    
+
+    $.each(data, function(i, project){
+      var html = template(project);
+      $('#projects').append(html);
+      if (i == data.length - 1){
+        $('#projects').masonry({
+          itemSelector: '.project',
+          "gutter" : 20
+        });
+      }
+    })
+
+
+
+  }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+
+  <script>
+    
+  </script>
+
+
+</html>
+
